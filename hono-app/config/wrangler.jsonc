@@ -1,0 +1,38 @@
+/**
+ * For more details on how to configure Wrangler, refer to:
+ * https://developers.cloudflare.com/workers/wrangler/configuration/
+ */
+{
+  "$schema": "../node_modules/wrangler/config-schema.json",
+  "name": "user_app-prod",
+  "main": "../src/index.ts",
+  "compatibility_date": "2026-06-04",
+  "observability": {
+    "enabled": true,
+  },
+  "workers_dev": true, // for production use false after use router
+  "upload_source_maps": true,
+  "compatibility_flags": ["nodejs_compat"],
+
+  "d1_databases": [
+    {
+      "binding": "USER_DATABASE",
+      "database_name": "user-db",
+      "database_id": "96c3f38e-478c-4cac-85ce-00859ef53f47",
+    },
+  ],
+
+  // Use env when use -env=production flag
+  "env": {
+    "production": {
+      "name": "user_app-prod",
+      "d1_databases": [
+        {
+          "binding": "USER_DATABASE",
+          "database_name": "user-db",
+          "database_id": "96c3f38e-478c-4cac-85ce-00859ef53f47",
+        },
+      ],
+    },
+  },
+}
