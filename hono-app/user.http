@@ -1,0 +1,127 @@
+### Cloudflare Workers - User CRUD API HTTP Requests
+### Base URL: http://localhost:8787
+
+#############################################################################
+# HEALTH CHECK
+#############################################################################
+
+### Health Check
+GET http://localhost:8787/health
+Content-Type: application/json
+
+#############################################################################
+# USER CRUD OPERATIONS
+#############################################################################
+
+### 1. GET /api/v1/users - List all users
+GET http://localhost:8787/api/v1/users
+Content-Type: application/json
+
+### 2. GET /api/v1/users/:id - Get specific user by ID
+GET http://localhost:8787/api/v1/users/1
+Content-Type: application/json
+
+### 3. POST /api/v1/users - Create a new user
+POST http://localhost:8787/api/v1/users
+Content-Type: application/json
+
+{
+  "username": "johndoe",
+  "email": "john.doe@example.com"
+}
+
+### 4. POST /api/v1/users - Create another user for testing
+POST http://localhost:8787/api/v1/users
+Content-Type: application/json
+
+{
+  "username": "janedoe",
+  "email": "jane.doe@example.com"
+}
+
+### 5. POST /api/v1/users - Create user with invalid email (should fail validation)
+POST http://localhost:8787/api/v1/users
+Content-Type: application/json
+
+{
+  "username": "invaliduser",
+  "email": "invalid-email"
+}
+
+### 6. POST /api/v1/users - Create user with username too long (should fail validation)
+POST http://localhost:8787/api/v1/users
+Content-Type: application/json
+
+{
+  "username": "thisusernameistoolongandexceedsthemaximumlength",
+  "email": "test@example.com"
+}
+
+### 7. POST /api/v1/users - Create duplicate user (should fail UNIQUE constraint)
+POST http://localhost:8787/api/v1/users
+Content-Type: application/json
+
+{
+  "username": "johndoe",
+  "email": "duplicate@example.com"
+}
+
+### 8. PUT /api/v1/users/:id - Update user email (partial update)
+PUT http://localhost:8787/api/v1/users/1
+Content-Type: application/json
+
+{
+  "email": "john.doe.updated@example.com"
+}
+
+### 9. PUT /api/v1/users/:id - Update user username (partial update)
+PUT http://localhost:8787/api/v1/users/2
+Content-Type: application/json
+
+{
+  "username": "janedoe123"
+}
+
+### 10. PUT /api/v1/users/:id - Update both fields
+PUT http://localhost:8787/api/v1/users/1
+Content-Type: application/json
+
+{
+  "username": "johnsmith",
+  "email": "john.smith@example.com"
+}
+
+### 11. PUT /api/v1/users/:id - Update with empty body (should fail)
+PUT http://localhost:8787/api/v1/users/1
+Content-Type: application/json
+
+{
+}
+
+### 12. PUT /api/v1/users/:id - Update non-existent user (should fail)
+PUT http://localhost:8787/api/v1/users/999
+Content-Type: application/json
+
+{
+  "username": "nonexistent"
+}
+
+### 13. DELETE /api/v1/users/:id - Delete a user
+DELETE http://localhost:8787/api/v1/users/1
+Content-Type: application/json
+
+### 14. DELETE /api/v1/users/:id - Delete non-existent user (should fail)
+DELETE http://localhost:8787/api/v1/users/999
+Content-Type: application/json
+
+### 15. GET /api/v1/users - Verify users after operations
+GET http://localhost:8787/api/v1/users
+Content-Type: application/json
+
+#############################################################################
+# ORIGINAL MESSAGE ENDPOINT
+#############################################################################
+
+### GET /message - Original Hono message endpoint
+GET http://localhost:8787/message
+Content-Type: application/json

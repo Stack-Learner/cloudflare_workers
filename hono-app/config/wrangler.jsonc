@@ -19,6 +19,7 @@
       "binding": "USER_DATABASE",
       "database_name": "user-db",
       "database_id": "96c3f38e-478c-4cac-85ce-00859ef53f47",
+      "migrations_dir": "../migrations"
     },
   ],
 
@@ -31,6 +32,7 @@
           "binding": "USER_DATABASE",
           "database_name": "user-db",
           "database_id": "96c3f38e-478c-4cac-85ce-00859ef53f47",
+             "migrations_dir": "../migrations"
         },
       ],
     },

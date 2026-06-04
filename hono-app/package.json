@@ -5,12 +5,17 @@
     "dev": "wrangler dev",
     "deploy": "wrangler deploy --config ./config/wrangler.jsonc --minify --env production",
     "push-prod-env": "wrangler secret bulk .env --cwd ./config --env production",
-    "cf-typegen": "wrangler types --env-interface CloudflareBindings"
+    "cf-typegen": "wrangler types --env-interface CloudflareBindings",
+    "create_migration": "wrangler d1 migrations create user-db --config wrangler.jsonc",
+    "apply_migration:dev": "wrangler d1 migrations apply user-db --local --config wrangler.jsonc",
+    "apply_migration:prod": "wrangler d1 migrations apply user-db --remote --config ./config/wrangler.jsonc",
+    "list_migrations:dev": "wrangler d1 migrations list user-db --local --config wrangler.jsonc",
+    "list_migrations:prod": "wrangler d1 migrations list user-db --remote --config ./config/wrangler.jsonc"
   },
   "dependencies": {
     "hono": "^4.12.23",
     "@hono/zod-validator": "^0.8.0",
-		"zod": "^4.4.3"
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@types/node": "^25.9.1",
